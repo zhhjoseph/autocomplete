@@ -54,7 +54,7 @@ const searchInputReducer = (state, action) => {
         return {
           ...state,
           categoryIndex: previousCategoryIndex,
-          productIndex: categoryMap[previousCategoryIndex].length - 1,
+          productIndex: categoryMap[previousCategoryIndex][1].length - 1,
         };
       } else {
         return {
