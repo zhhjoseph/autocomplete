@@ -168,6 +168,10 @@ const StyledProductList = styled.ul`
 `;
 
 const StyledProductListItem = styled.li`
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+  height: 35px;
   background-color: ${(props) =>
     props.isSelected ? `${SECONDARY_BLUE_COLOR}` : "white"};
 `;
