@@ -19,7 +19,7 @@ const ProductsList = ({
             productIndex === currentProductIndex;
           return (
             <StyledProductListItem key={product.name} isSelected={isSelected}>
-              <StyledLink href={product.name} target="_blank">
+              <StyledLink href={product.url} target="_blank">
                 {HighlightSearchString({
                   label: product.name,
                   searchString: searchQuery,
