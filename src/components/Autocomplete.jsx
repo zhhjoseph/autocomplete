@@ -29,7 +29,6 @@ const Autocomplete = () => {
   } = searchState;
 
   const onChange = (e) => {
-    console.log(e);
     const userInput = e.currentTarget.value;
     if (userInput === "") {
       dispatch({ type: "SET_DEFAULT_STATE" });
@@ -62,8 +61,6 @@ const Autocomplete = () => {
       dispatch({ type: "ON_KEY_DOWN" });
     }
   };
-
-  console.log("state", searchState);
 
   return (
     <SearchBarDiv>
