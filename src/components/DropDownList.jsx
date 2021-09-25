@@ -1,12 +1,14 @@
 import React, { Fragment } from "react";
 import styled from "styled-components";
 import { SECONDARY_BLUE_COLOR, BASIC_MOBILE_MEDIA_QUERY } from "../Styles";
+import { HighlightSearchString } from "../UI";
 
 const ProductsList = ({
   productMap,
   currentCategoryIndex,
   categoryIndex,
   productIndex,
+  currentInput,
 }) => {
   return (
     <Fragment>
@@ -17,8 +19,11 @@ const ProductsList = ({
             productIndex === currentProductIndex;
           return (
             <StyledProductListItem key={product.name} isSelected={isSelected}>
-              <StyledLink href={product.url} target="_blank">
-                {product.name}
+              <StyledLink href={product.name} target="_blank">
+                {HighlightSearchString({
+                  label: product.name,
+                  searchString: currentInput,
+                })}
               </StyledLink>
             </StyledProductListItem>
           );
@@ -28,7 +33,12 @@ const ProductsList = ({
   );
 };
 
-const DropDownList = ({ categoryMap, categoryIndex, productIndex }) => {
+const DropDownList = ({
+  categoryMap,
+  categoryIndex,
+  productIndex,
+  currentInput,
+}) => {
   return (
     <StyledCategoryList>
       {categoryMap.map((category, currentCategoryIndex) => {
@@ -42,6 +52,7 @@ const DropDownList = ({ categoryMap, categoryIndex, productIndex }) => {
               currentCategoryIndex={currentCategoryIndex}
               categoryIndex={categoryIndex}
               productIndex={productIndex}
+              currentInput={currentInput}
             />
           </Fragment>
         );

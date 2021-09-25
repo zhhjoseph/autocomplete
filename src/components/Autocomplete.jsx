@@ -80,6 +80,7 @@ const Autocomplete = () => {
           categoryMap={categoryMap}
           categoryIndex={categoryIndex}
           productIndex={productIndex}
+          currentInput={currentInput}
         />
       )}
     </SearchBarDiv>
