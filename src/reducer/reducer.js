@@ -54,7 +54,7 @@ const searchInputReducer = (state, action) => {
         return {
           ...state,
           categoryIndex: previousCategoryIndex,
-          productIndex: categoryMap[previousCategoryIndex].length - 1,
+          productIndex: categoryMap[previousCategoryIndex][1].length - 1,
         };
       } else {
         return {
@@ -70,15 +70,12 @@ const searchInputReducer = (state, action) => {
         return { ...state };
       }
       if (categoryMap[categoryIndex][1].length - 1 === productIndex) {
-        console.log("1");
         return {
           ...state,
           categoryIndex: categoryIndex + 1,
           productIndex: 0,
         };
       } else {
-        console.log("2", categoryMap[categoryIndex][1].length);
-        console.log("productIndex", productIndex);
         return {
           ...state,
           productIndex: productIndex + 1,
