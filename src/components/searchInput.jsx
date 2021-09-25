@@ -25,9 +25,8 @@ const ProductsList = ({ productMap }) => {
 };
 
 const CategoryList = ({ categoryMap }) => {
-  console.log("CategoryMap", categoryMap);
   return (
-    <ul>
+    <SuggestionList>
       {categoryMap.map((category, index) => {
         return (
           <Fragment key={category[0]}>
@@ -36,14 +35,15 @@ const CategoryList = ({ categoryMap }) => {
           </Fragment>
         );
       })}
-    </ul>
+    </SuggestionList>
   );
 };
 
 const SearchInput = () => {
   const [searchState, dispatch] = useReducer(searchInputReducer, initialState);
   const { products } = data;
-  const { filteredSuggestions, categoryMap, showSuggestions } = searchState;
+  const { filteredSuggestions, categoryMap, showSuggestions, currentInput } =
+    searchState;
 
   const onChange = (e) => {
     const userInput = e.currentTarget.value.trim();
@@ -63,13 +63,30 @@ const SearchInput = () => {
     });
   };
 
+  const onKeyDown = (e) => {
+    if (!currentInput) {
+      return;
+    }
+    if (e.keyCode === 13) {
+      dispatch({ type: "ON_ENTER_PRESS" });
+    } else if (e.keyCode === 38) {
+      dispatch({ type: "ON_KEY_UP" });
+    } else if (e.keyCode === 40) {
+      dispatch({ type: "ON_KEY_DOWN" });
+    }
+  };
+
+  console.log("state", searchState);
+
   return (
     <SearchBarDiv>
       {showSuggestions && <BackgroundDim />}
       <StyledSearchBar
         type="text"
         onChange={onChange}
+        onKeyDown={onKeyDown}
         placeholder={"Begin search here"}
+        value={currentInput}
       />
       {filteredSuggestions && categoryMap.length > 0 && (
         <CategoryList categoryMap={categoryMap} />
@@ -82,6 +99,22 @@ const SearchBarDiv = styled.div`
   margin-top: 20px;
   height: 25px;
   width: 100%;
+`;
+
+const SuggestionList = styled.ul`
+  position: fixed;
+  list-style: outside none none;
+  background: white;
+  top: 75px;
+  z-index: 2;
+  width: 700px;
+  padding: 0;
+  li:hover {
+    background-color: #008f68;
+    color: #fae042;
+    cursor: pointer;
+    font-weight: 700;
+  }
 `;
 
 const StyledSearchBar = styled.input`
