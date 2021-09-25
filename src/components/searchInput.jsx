@@ -2,7 +2,11 @@ import React, { useReducer, Fragment } from "react";
 import styled from "styled-components";
 import data from "../data/products.json";
 import { searchInputReducer } from "../reducer";
-import { SECONDARY_COLOR, SECONDARY_BLUE_COLOR } from "../Styles";
+import {
+  SECONDARY_COLOR,
+  SECONDARY_BLUE_COLOR,
+  BASIC_MOBILE_MEDIA_QUERY,
+} from "../Styles";
 
 const initialState = {
   categoryIndex: 0,
@@ -94,6 +98,9 @@ const SearchInput = () => {
     if (!currentInput) {
       return;
     }
+    if (categoryMap.length === 0) {
+      return;
+    }
     if (e.keyCode === 13) {
       dispatch({ type: "ON_ENTER_PRESS" });
     } else if (e.keyCode === 38) {
@@ -144,6 +151,9 @@ const StyledCategoryList = styled.ul`
   width: 400px;
   border-radius: 6px;
   padding: 0px 0px 15px 0px;
+  @media ${BASIC_MOBILE_MEDIA_QUERY} {
+    width: 300px;
+  }
 `;
 
 const StyledCategoryListItem = styled.li`
