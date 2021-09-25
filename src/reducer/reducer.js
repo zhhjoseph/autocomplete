@@ -1,4 +1,4 @@
-import { truncateSearchResults, groupDataByCategory } from "../utils/helpers";
+import { groupDataByCategory } from "../utils/helpers";
 
 const defaultSearchInputReducerState = {
   categoryIndex: 0,
@@ -10,7 +10,7 @@ const defaultSearchInputReducerState = {
 };
 
 const searchInputReducer = (state, action) => {
-  const { filteredSuggestions, categoryIndex, productIndex } = state;
+  const { categoryIndex, productIndex, categoryMap } = state;
   switch (action.type) {
     case "SET_DEFAULT_STATE":
       console.log("DEFAULT SET");
@@ -34,7 +34,6 @@ const searchInputReducer = (state, action) => {
         filteredSuggestions: [],
         currentInput: "",
         categoryMap: [],
-        productsMap: [],
       };
     case "ON_ENTER_PRESS":
       //enter key
@@ -45,7 +44,6 @@ const searchInputReducer = (state, action) => {
         showSuggestions: false,
         currentInput: "",
         categoryMap: [],
-        productsMap: [],
       };
     case "ON_KEY_UP":
       if (categoryIndex === 0 && productIndex === 0) {
@@ -56,7 +54,7 @@ const searchInputReducer = (state, action) => {
         return {
           ...state,
           categoryIndex: previousCategoryIndex,
-          productIndex: filteredSuggestions[previousCategoryIndex].length - 1,
+          productIndex: categoryMap[previousCategoryIndex].length - 1,
         };
       } else {
         return {
@@ -66,12 +64,12 @@ const searchInputReducer = (state, action) => {
       }
     case "ON_KEY_DOWN":
       const isLastIndex =
-        categoryIndex === filteredSuggestions.length &&
-        filteredSuggestions[categoryIndex].length === productIndex;
+        categoryIndex === categoryMap.length - 1 &&
+        categoryMap[categoryIndex][1].length - 1 === productIndex;
       if (isLastIndex) {
         return { ...state };
       }
-      if (filteredSuggestions[categoryIndex].length - 1 === productIndex) {
+      if (categoryMap[categoryIndex][1].length - 1 === productIndex) {
         return {
           ...state,
           categoryIndex: categoryIndex + 1,

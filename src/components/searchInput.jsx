@@ -25,13 +25,14 @@ const ProductsList = ({ productMap }) => {
 };
 
 const CategoryList = ({ categoryMap }) => {
+  console.log("CategoryMap", categoryMap);
   return (
     <Fragment>
       <ul>
         {categoryMap.map((category, index) => {
           return (
-            <Fragment>
-              <li>{category[0]}</li>
+            <Fragment key={category[0]}>
+              <li>{category[0].replace(/_/g, " ")}</li>
               <ProductsList productMap={category[1]} />
             </Fragment>
           );

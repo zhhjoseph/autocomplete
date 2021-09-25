@@ -16,7 +16,7 @@ const groupDataByCategory = (data) => {
     }, [])
   );
 
-  const groupedData = uniqueData
+  const sortedGroupedData = uniqueData
     .reduce((prevValue, currentValue) => {
       if (prevValue.length === 0) {
         prevValue.push([`${currentValue.type}`, [currentValue]]);
@@ -37,7 +37,7 @@ const groupDataByCategory = (data) => {
       return a[0] > b[0] ? 1 : -1;
     });
 
-  return groupedData;
+  return sortedGroupedData;
 };
 
 export { truncateSearchResults, groupDataByCategory };
