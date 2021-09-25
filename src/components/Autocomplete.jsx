@@ -11,6 +11,7 @@ const initialState = {
   showSuggestions: false,
   filteredSuggestions: [],
   currentInput: "",
+  searchQuery: "",
   categoryMap: [],
   currentSelectedURL: "",
 };
@@ -26,6 +27,7 @@ const Autocomplete = () => {
     categoryIndex,
     productIndex,
     currentSelectedURL,
+    searchQuery,
   } = searchState;
 
   const onChange = (e) => {
@@ -77,7 +79,7 @@ const Autocomplete = () => {
           categoryMap={categoryMap}
           categoryIndex={categoryIndex}
           productIndex={productIndex}
-          currentInput={currentInput}
+          searchQuery={searchQuery}
         />
       )}
     </SearchBarDiv>

@@ -8,7 +8,7 @@ const ProductsList = ({
   currentCategoryIndex,
   categoryIndex,
   productIndex,
-  currentInput,
+  searchQuery,
 }) => {
   return (
     <Fragment>
@@ -22,7 +22,7 @@ const ProductsList = ({
               <StyledLink href={product.name} target="_blank">
                 {HighlightSearchString({
                   label: product.name,
-                  searchString: currentInput,
+                  searchString: searchQuery,
                 })}
               </StyledLink>
             </StyledProductListItem>
@@ -37,7 +37,7 @@ const DropDownList = ({
   categoryMap,
   categoryIndex,
   productIndex,
-  currentInput,
+  searchQuery,
 }) => {
   return (
     <StyledCategoryList>
@@ -52,7 +52,7 @@ const DropDownList = ({
               currentCategoryIndex={currentCategoryIndex}
               categoryIndex={categoryIndex}
               productIndex={productIndex}
-              currentInput={currentInput}
+              searchQuery={searchQuery}
             />
           </Fragment>
         );
@@ -91,10 +91,13 @@ const StyledProductList = styled.ul`
   list-style: none;
   padding: 0;
   li:hover {
+    background-color: rgb(0, 0, 0, 0.2);
+  }
+  /* li:hover {
     text-decoration: underline;
     cursor: pointer;
     font-weight: 700;
-  }
+  } */
 `;
 
 const StyledProductListItem = styled.li`

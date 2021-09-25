@@ -6,6 +6,7 @@ const defaultSearchInputReducerState = {
   showSuggestions: false,
   filteredSuggestions: [],
   currentInput: "",
+  searchQuery: "",
   categoryMap: [],
 };
 
@@ -24,6 +25,7 @@ const searchInputReducer = (state, action) => {
         filteredSuggestions: action.filteredSuggestions,
         categoryMap: mappedCategories,
         currentInput: action.currentInput,
+        searchQuery: action.currentInput,
         currentSelectedURL:
           mappedCategories.length > 0 ? mappedCategories[0][1][0].url : "",
       };
@@ -61,6 +63,10 @@ const searchInputReducer = (state, action) => {
             state.categoryMap[previousCategoryIndex][1][
               categoryMap[previousCategoryIndex][1].length - 1
             ].url,
+          currentInput:
+            state.categoryMap[previousCategoryIndex][1][
+              categoryMap[previousCategoryIndex][1].length - 1
+            ].name,
         };
       } else {
         return {
@@ -68,6 +74,8 @@ const searchInputReducer = (state, action) => {
           productIndex: productIndex - 1,
           currentSelectedURL:
             state.categoryMap[categoryIndex][1][productIndex - 1].url,
+          currentInput:
+            state.categoryMap[categoryIndex][1][productIndex - 1].name,
         };
       }
     case "ON_KEY_DOWN":
@@ -83,6 +91,7 @@ const searchInputReducer = (state, action) => {
           categoryIndex: categoryIndex + 1,
           productIndex: 0,
           currentSelectedURL: state.categoryMap[categoryIndex + 1][1][0].url,
+          currentInput: state.categoryMap[categoryIndex + 1][1][0].name,
         };
       } else {
         return {
@@ -90,6 +99,8 @@ const searchInputReducer = (state, action) => {
           productIndex: productIndex + 1,
           currentSelectedURL:
             state.categoryMap[categoryIndex][1][productIndex + 1].url,
+          currentInput:
+            state.categoryMap[categoryIndex][1][productIndex + 1].name,
         };
       }
     default:
