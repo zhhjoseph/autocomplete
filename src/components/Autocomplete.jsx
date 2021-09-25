@@ -25,6 +25,7 @@ const Autocomplete = () => {
     currentInput,
     categoryIndex,
     productIndex,
+    currentSelectedURL,
   } = searchState;
 
   const onChange = (e) => {
@@ -53,6 +54,7 @@ const Autocomplete = () => {
       return;
     }
     if (e.keyCode === 13) {
+      window.open(currentSelectedURL, "_blank");
       dispatch({ type: "ON_ENTER_PRESS" });
     } else if (e.keyCode === 38) {
       dispatch({ type: "ON_KEY_UP" });

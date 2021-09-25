@@ -17,7 +17,9 @@ const ProductsList = ({
             productIndex === currentProductIndex;
           return (
             <StyledProductListItem key={product.name} isSelected={isSelected}>
-              {product.name}
+              <StyledLink href={product.url} target="_blank">
+                {product.name}
+              </StyledLink>
             </StyledProductListItem>
           );
         })}
@@ -71,6 +73,7 @@ const StyledCategoryListItem = styled.li`
   font-weight: 500;
   height: 40px;
   padding-left: 5px;
+  border-bottom: 1px solid rgb(0, 0, 0, 0.5);
 `;
 
 const StyledProductList = styled.ul`
@@ -90,6 +93,12 @@ const StyledProductListItem = styled.li`
   height: 35px;
   background-color: ${(props) =>
     props.isSelected ? `${SECONDARY_BLUE_COLOR}` : "white"};
+  border-bottom: 1px solid rgb(0, 0, 0, 0.2);
+`;
+
+const StyledLink = styled.a`
+  color: black;
+  text-decoration: none;
 `;
 
 export { DropDownList };
