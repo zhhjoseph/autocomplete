@@ -1,8 +1,8 @@
 import { groupDataByCategory } from "../utils/helpers";
 
 const defaultSearchInputReducerState = {
-  categoryIndex: 0,
-  productIndex: 0,
+  categoryIndex: null,
+  productIndex: null,
   showSuggestions: false,
   filteredSuggestions: [],
   currentInput: "",
@@ -19,8 +19,8 @@ const searchInputReducer = (state, action) => {
       const mappedCategories = groupDataByCategory(action.filteredSuggestions);
       return {
         ...state,
-        categoryIndex: 0,
-        productIndex: 0,
+        categoryIndex: null,
+        productIndex: null,
         showSuggestions: true,
         filteredSuggestions: action.filteredSuggestions,
         categoryMap: mappedCategories,
@@ -32,8 +32,8 @@ const searchInputReducer = (state, action) => {
     case "ON_CLICK":
       return {
         ...state,
-        categoryIndex: 0,
-        productIndex: 0,
+        categoryIndex: null,
+        productIndex: null,
         showSuggestions: false,
         filteredSuggestions: [],
         currentInput: "",
@@ -43,15 +43,31 @@ const searchInputReducer = (state, action) => {
       //enter key
       return {
         ...state,
-        categoryIndex: 0,
-        productIndex: 0,
+        categoryIndex: null,
+        productIndex: null,
         showSuggestions: false,
         currentInput: "",
         categoryMap: [],
       };
     case "ON_KEY_UP":
+      if (categoryIndex === null && productIndex === null) {
+        const lastCategoryIndex = categoryMap.length - 1;
+        return {
+          ...state,
+          categoryIndex: lastCategoryIndex,
+          productIndex: categoryMap[lastCategoryIndex][1].length - 1,
+          currentSelectedURL:
+            categoryMap[lastCategoryIndex][1][
+              categoryMap[lastCategoryIndex][1].length - 1
+            ].url,
+          currentInput:
+            categoryMap[lastCategoryIndex][1][
+              categoryMap[lastCategoryIndex][1].length - 1
+            ].name,
+        };
+      }
       if (categoryIndex === 0 && productIndex === 0) {
-        return { ...state };
+        return { ...state, categoryIndex: null, productIndex: null };
       }
       if (productIndex === 0) {
         const previousCategoryIndex = categoryIndex - 1;
@@ -82,9 +98,19 @@ const searchInputReducer = (state, action) => {
       const isLastIndex =
         categoryIndex === categoryMap.length - 1 &&
         categoryMap[categoryIndex][1].length - 1 === productIndex;
-      if (isLastIndex) {
-        return { ...state };
+      if (categoryIndex === null && productIndex === null) {
+        return {
+          ...state,
+          categoryIndex: 0,
+          productIndex: 0,
+          currentSelectedURL: categoryMap[0][1][0].url,
+          currentInput: categoryMap[0][1][0].name,
+        };
       }
+      if (isLastIndex) {
+        return { ...state, categoryIndex: null, productIndex: null };
+      }
+
       if (categoryMap[categoryIndex][1].length - 1 === productIndex) {
         return {
           ...state,
