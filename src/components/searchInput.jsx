@@ -2,6 +2,7 @@ import React, { useReducer, Fragment } from "react";
 import styled from "styled-components";
 import data from "../data/products.json";
 import { searchInputReducer } from "../reducer";
+import { SECONDARY_COLOR, SECONDARY_BLUE_COLOR } from "../Styles";
 
 const initialState = {
   categoryIndex: 0,
@@ -10,43 +11,69 @@ const initialState = {
   filteredSuggestions: [],
   currentInput: "",
   categoryMap: [],
+  currentSelectedURL: "",
 };
 
-const ProductsList = ({ productMap }) => {
+const ProductsList = ({
+  productMap,
+  currentCategoryIndex,
+  categoryIndex,
+  productIndex,
+}) => {
   return (
     <Fragment>
-      <ul>
-        {productMap.map((product) => {
-          return <li key={product.name}>{product.name}</li>;
+      <StyledProductList>
+        {productMap.map((product, currentProductIndex) => {
+          const isSelected =
+            currentCategoryIndex === categoryIndex &&
+            productIndex === currentProductIndex;
+          return (
+            <StyledProductListItem key={product.name} isSelected={isSelected}>
+              {product.name}
+            </StyledProductListItem>
+          );
         })}
-      </ul>
+      </StyledProductList>
     </Fragment>
   );
 };
 
-const CategoryList = ({ categoryMap }) => {
+const CategoryList = ({ categoryMap, categoryIndex, productIndex }) => {
   return (
-    <SuggestionList>
-      {categoryMap.map((category, index) => {
+    <StyledCategoryList>
+      {categoryMap.map((category, currentCategoryIndex) => {
         return (
           <Fragment key={category[0]}>
-            <li>{category[0].replace(/_/g, " ")}</li>
-            <ProductsList productMap={category[1]} />
+            <StyledCategoryListItem>
+              {category[0].replace(/_/g, " ")}
+            </StyledCategoryListItem>
+            <ProductsList
+              productMap={category[1]}
+              currentCategoryIndex={currentCategoryIndex}
+              categoryIndex={categoryIndex}
+              productIndex={productIndex}
+            />
           </Fragment>
         );
       })}
-    </SuggestionList>
+    </StyledCategoryList>
   );
 };
 
 const SearchInput = () => {
   const [searchState, dispatch] = useReducer(searchInputReducer, initialState);
   const { products } = data;
-  const { filteredSuggestions, categoryMap, showSuggestions, currentInput } =
-    searchState;
+  const {
+    filteredSuggestions,
+    categoryMap,
+    showSuggestions,
+    currentInput,
+    categoryIndex,
+    productIndex,
+  } = searchState;
 
   const onChange = (e) => {
-    const userInput = e.currentTarget.value.trim();
+    const userInput = e.currentTarget.value;
     if (userInput === "") {
       dispatch({ type: "SET_DEFAULT_STATE" });
       return;
@@ -89,48 +116,79 @@ const SearchInput = () => {
         value={currentInput}
       />
       {filteredSuggestions && categoryMap.length > 0 && (
-        <CategoryList categoryMap={categoryMap} />
+        <CategoryList
+          categoryMap={categoryMap}
+          categoryIndex={categoryIndex}
+          productIndex={productIndex}
+        />
       )}
     </SearchBarDiv>
   );
 };
 
 const SearchBarDiv = styled.div`
-  margin-top: 20px;
-  height: 25px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
   width: 100%;
 `;
 
-const SuggestionList = styled.ul`
+const StyledCategoryList = styled.ul`
   position: fixed;
-  list-style: outside none none;
+  list-style: none;
   background: white;
   top: 75px;
   z-index: 2;
-  width: 700px;
+  width: 400px;
+  border-radius: 6px;
+  padding: 0px 0px 15px 0px;
+`;
+
+const StyledCategoryListItem = styled.li`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  height: 40px;
+  padding-left: 5px;
+`;
+
+const StyledProductList = styled.ul`
+  list-style: none;
   padding: 0;
   li:hover {
-    background-color: #008f68;
-    color: #fae042;
+    text-decoration: underline;
     cursor: pointer;
     font-weight: 700;
   }
 `;
 
+const StyledProductListItem = styled.li`
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+  height: 35px;
+  background-color: ${(props) =>
+    props.isSelected ? `${SECONDARY_BLUE_COLOR}` : "white"};
+`;
+
 const StyledSearchBar = styled.input`
-  position: fixed;
   z-index: 2;
-  padding: 8px 16px;
+  height: 45px;
+  padding: 0px 8px;
+  width: 382px;
   line-height: 25px;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 500;
   font-family: inherit;
-  width: 100%;
   border-radius: 6px;
   min-width: 300px;
-  max-width: 500px;
   border: 1px solid #cdd9ed;
-  background: #eef4ff;
+  background: ${SECONDARY_COLOR};
   transition: background 0.3s ease, border 0.3s ease, color 0.3s ease;
   &:focus {
     outline: none;
@@ -140,11 +198,12 @@ const StyledSearchBar = styled.input`
 
 const BackgroundDim = styled.div`
   height: calc(100vh - 75px);
+  overflow: hidden;
   width: 100%;
+  left: 0;
   position: absolute;
   background-color: rgba(0, 0, 0, 0.7);
   top: 75px;
-  right: 0px;
   z-index: 1;
 `;
 
