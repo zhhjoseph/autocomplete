@@ -1,10 +1,10 @@
-import { Autocomplete } from "./screens";
+import { Main } from "./screens";
 import styled from "styled-components";
 
 function App() {
   return (
     <Container>
-      <Autocomplete />
+      <Main />
     </Container>
   );
 }

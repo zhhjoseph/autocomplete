@@ -24,7 +24,8 @@ const searchInputReducer = (state, action) => {
         filteredSuggestions: action.filteredSuggestions,
         categoryMap: mappedCategories,
         currentInput: action.currentInput,
-        currentSelectedURL: mappedCategories[0][1][0].url,
+        currentSelectedURL:
+          mappedCategories.length > 0 ? mappedCategories[0][1][0].url : "",
       };
     case "ON_CLICK":
       return {

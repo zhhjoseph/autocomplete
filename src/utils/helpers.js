@@ -1,6 +1,6 @@
 const truncateSearchResults = (searchResults) => {
   if (window.innerWidth <= 768) {
-    return searchResults.slice(0, 4);
+    return searchResults.slice(0, 5);
   } else {
     return searchResults.slice(0, 10);
   }
