@@ -1,3 +1,4 @@
 import { CustomInput } from "./CustomInput";
+import { HighlightSearchString } from "./HighlightSearchString";
 
-export { CustomInput };
+export { CustomInput, HighlightSearchString };

@@ -1,12 +1,14 @@
 import React, { Fragment } from "react";
 import styled from "styled-components";
 import { SECONDARY_BLUE_COLOR, BASIC_MOBILE_MEDIA_QUERY } from "../Styles";
+import { HighlightSearchString } from "../UI";
 
 const ProductsList = ({
   productMap,
   currentCategoryIndex,
   categoryIndex,
   productIndex,
+  searchQuery,
 }) => {
   return (
     <Fragment>
@@ -17,7 +19,12 @@ const ProductsList = ({
             productIndex === currentProductIndex;
           return (
             <StyledProductListItem key={product.name} isSelected={isSelected}>
-              {product.name}
+              <StyledLink href={product.name} target="_blank">
+                {HighlightSearchString({
+                  label: product.name,
+                  searchString: searchQuery,
+                })}
+              </StyledLink>
             </StyledProductListItem>
           );
         })}
@@ -26,7 +33,12 @@ const ProductsList = ({
   );
 };
 
-const DropDownList = ({ categoryMap, categoryIndex, productIndex }) => {
+const DropDownList = ({
+  categoryMap,
+  categoryIndex,
+  productIndex,
+  searchQuery,
+}) => {
   return (
     <StyledCategoryList>
       {categoryMap.map((category, currentCategoryIndex) => {
@@ -40,6 +52,7 @@ const DropDownList = ({ categoryMap, categoryIndex, productIndex }) => {
               currentCategoryIndex={currentCategoryIndex}
               categoryIndex={categoryIndex}
               productIndex={productIndex}
+              searchQuery={searchQuery}
             />
           </Fragment>
         );
@@ -71,16 +84,20 @@ const StyledCategoryListItem = styled.li`
   font-weight: 500;
   height: 40px;
   padding-left: 5px;
+  border-bottom: 1px solid rgb(0, 0, 0, 0.5);
 `;
 
 const StyledProductList = styled.ul`
   list-style: none;
   padding: 0;
   li:hover {
+    background-color: rgb(0, 0, 0, 0.2);
+  }
+  /* li:hover {
     text-decoration: underline;
     cursor: pointer;
     font-weight: 700;
-  }
+  } */
 `;
 
 const StyledProductListItem = styled.li`
@@ -90,6 +107,12 @@ const StyledProductListItem = styled.li`
   height: 35px;
   background-color: ${(props) =>
     props.isSelected ? `${SECONDARY_BLUE_COLOR}` : "white"};
+  border-bottom: 1px solid rgb(0, 0, 0, 0.2);
+`;
+
+const StyledLink = styled.a`
+  color: black;
+  text-decoration: none;
 `;
 
 export { DropDownList };

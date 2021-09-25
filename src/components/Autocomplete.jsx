@@ -11,6 +11,7 @@ const initialState = {
   showSuggestions: false,
   filteredSuggestions: [],
   currentInput: "",
+  searchQuery: "",
   categoryMap: [],
   currentSelectedURL: "",
 };
@@ -25,10 +26,11 @@ const Autocomplete = () => {
     currentInput,
     categoryIndex,
     productIndex,
+    currentSelectedURL,
+    searchQuery,
   } = searchState;
 
   const onChange = (e) => {
-    console.log(e);
     const userInput = e.currentTarget.value;
     if (userInput === "") {
       dispatch({ type: "SET_DEFAULT_STATE" });
@@ -53,6 +55,7 @@ const Autocomplete = () => {
       return;
     }
     if (e.keyCode === 13) {
+      window.open(currentSelectedURL, "_blank");
       dispatch({ type: "ON_ENTER_PRESS" });
     } else if (e.keyCode === 38) {
       dispatch({ type: "ON_KEY_UP" });
@@ -60,8 +63,6 @@ const Autocomplete = () => {
       dispatch({ type: "ON_KEY_DOWN" });
     }
   };
-
-  console.log("state", searchState);
 
   return (
     <SearchBarDiv>
@@ -78,6 +79,7 @@ const Autocomplete = () => {
           categoryMap={categoryMap}
           categoryIndex={categoryIndex}
           productIndex={productIndex}
+          searchQuery={searchQuery}
         />
       )}
     </SearchBarDiv>
