@@ -1,11 +1,13 @@
 import React from "react";
 import styled from "styled-components";
-import { SearchInput } from "../components";
+import { SearchInput, NavBar } from "../components";
 
 const Autocomplete = () => {
   return (
     <Container>
-      <SearchInput />
+      <NavBar>
+        <SearchInput />
+      </NavBar>
     </Container>
   );
 };
@@ -13,7 +15,6 @@ const Autocomplete = () => {
 const Container = styled.div`
   height: 100%;
   width: 100%;
-  background-color: #edc7b7;
   display: flex;
   flex-direction: row;
   justify-content: center;
