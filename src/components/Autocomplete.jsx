@@ -2,11 +2,8 @@ import React, { useReducer, Fragment } from "react";
 import styled from "styled-components";
 import data from "../data/products.json";
 import { searchInputReducer } from "../reducer";
-import {
-  SECONDARY_COLOR,
-  SECONDARY_BLUE_COLOR,
-  BASIC_MOBILE_MEDIA_QUERY,
-} from "../Styles";
+import { SECONDARY_BLUE_COLOR, BASIC_MOBILE_MEDIA_QUERY } from "../Styles";
+import { CustomInput } from "../UI";
 
 const initialState = {
   categoryIndex: 0,
@@ -64,7 +61,7 @@ const CategoryList = ({ categoryMap, categoryIndex, productIndex }) => {
   );
 };
 
-const SearchInput = () => {
+const Autocomplete = () => {
   const [searchState, dispatch] = useReducer(searchInputReducer, initialState);
   const { products } = data;
   const {
@@ -186,24 +183,9 @@ const StyledProductListItem = styled.li`
     props.isSelected ? `${SECONDARY_BLUE_COLOR}` : "white"};
 `;
 
-const StyledSearchBar = styled.input`
-  z-index: 2;
-  height: 45px;
-  padding: 0px 8px;
+const StyledSearchBar = styled(CustomInput)`
   width: 382px;
-  line-height: 25px;
-  font-size: 16px;
-  font-weight: 500;
-  font-family: inherit;
-  border-radius: 6px;
-  min-width: 300px;
-  border: 1px solid #cdd9ed;
-  background: ${SECONDARY_COLOR};
-  transition: background 0.3s ease, border 0.3s ease, color 0.3s ease;
-  &:focus {
-    outline: none;
-    border-color: #275efe;
-  }
+  z-index: 2;
 `;
 
 const BackgroundDim = styled.div`
@@ -217,4 +199,4 @@ const BackgroundDim = styled.div`
   z-index: 1;
 `;
 
-export { SearchInput };
+export { Autocomplete };

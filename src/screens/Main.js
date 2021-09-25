@@ -1,12 +1,12 @@
 import React from "react";
 import styled from "styled-components";
-import { SearchInput, NavBar } from "../components";
+import { Autocomplete, NavBar } from "../components";
 
-const Autocomplete = () => {
+const Main = () => {
   return (
     <Container>
       <NavBar>
-        <SearchInput />
+        <Autocomplete />
       </NavBar>
     </Container>
   );
@@ -20,4 +20,4 @@ const Container = styled.div`
   justify-content: center;
 `;
 
-export { Autocomplete };
+export { Main };

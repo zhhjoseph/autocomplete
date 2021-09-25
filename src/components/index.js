@@ -1,4 +1,4 @@
-import { SearchInput } from "./searchInput";
-import { NavBar } from "./navbar";
+import { Autocomplete } from "./Autocomplete";
+import { NavBar } from "./Navbar";
 
-export { SearchInput, NavBar };
+export { Autocomplete, NavBar };
