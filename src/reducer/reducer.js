@@ -5,14 +5,22 @@ const defaultSearchInputReducerState = {
   productIndex: null,
   showSuggestions: false,
   filteredSuggestions: [],
+  categoryMap: [],
   currentInput: "",
   searchQuery: "",
-  categoryMap: [],
+  error: false,
+  errorMessage: "",
 };
 
 const searchInputReducer = (state, action) => {
   const { categoryIndex, productIndex, categoryMap } = state;
   switch (action.type) {
+    case "SET_ERROR":
+      return {
+        ...state,
+        error: action.error,
+        errorMessage: action.errorMessage,
+      };
     case "SET_DEFAULT_STATE":
       return defaultSearchInputReducerState;
     case "ON_CHANGE":
