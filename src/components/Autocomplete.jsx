@@ -69,6 +69,8 @@ const Autocomplete = (props) => {
     }
   };
 
+  console.log("props", props);
+
   return (
     <SearchBarDiv>
       {showSuggestions && <BackgroundDim />}

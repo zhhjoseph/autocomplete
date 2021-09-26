@@ -6,7 +6,7 @@ const Main = () => {
   return (
     <Container>
       <NavBar>
-        <ErrorBoundary fallBackComponent={<Autocomplete error />}>
+        <ErrorBoundary>
           <Autocomplete />
         </ErrorBoundary>
       </NavBar>
