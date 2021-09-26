@@ -1,6 +1,6 @@
 # Autocomplete
 
-This project is created via create-react-app and is deployed at [https://joseph-autocomplete.netlify.app/]
+This project is created via create-react-app and is deployed at https://joseph-autocomplete.netlify.app/
 
 ## Starting the app
 
