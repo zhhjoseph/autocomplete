@@ -62,12 +62,14 @@ const DropDownList = ({
 };
 
 const StyledCategoryList = styled.ul`
-  position: fixed;
+  position: absolute;
   list-style: none;
   background: white;
-  top: 75px;
   z-index: 2;
   width: 400px;
+  top: 75px;
+  margin-left: 20px;
+
   border-radius: 6px;
   padding: 0px 0px 15px 0px;
   @media ${BASIC_MOBILE_MEDIA_QUERY} {
@@ -93,11 +95,6 @@ const StyledProductList = styled.ul`
   li:hover {
     background-color: rgb(0, 0, 0, 0.2);
   }
-  /* li:hover {
-    text-decoration: underline;
-    cursor: pointer;
-    font-weight: 700;
-  } */
 `;
 
 const StyledProductListItem = styled.li`

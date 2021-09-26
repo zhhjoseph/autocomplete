@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { SECONDARY_COLOR } from "../Styles";
+import { BASIC_MOBILE_MEDIA_QUERY, SECONDARY_COLOR } from "../Styles";
 import { BsSearch } from "react-icons/bs";
 import { AiOutlineClose } from "react-icons/ai";
 
@@ -19,6 +19,9 @@ const InputContainer = styled.div`
   justify-content: center;
   align-items: center;
   width: ${(props) => (props.width ? props.width : "100%")};
+  @media ${BASIC_MOBILE_MEDIA_QUERY} {
+    width: 300px;
+  }
 `;
 
 const StyledSearchIcon = styled(BsSearch)`

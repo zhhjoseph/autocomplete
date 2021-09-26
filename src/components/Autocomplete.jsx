@@ -102,15 +102,16 @@ const Autocomplete = () => {
 const SearchBarDiv = styled.div`
   position: relative;
   display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   justify-content: center;
-  align-items: center;
   height: 100%;
   width: 100%;
-  float: right;
 `;
 
 const StyledSearchBar = styled(CustomInput)`
   z-index: 2;
+  margin-left: 20px;
 `;
 
 const BackgroundDim = styled.div`
