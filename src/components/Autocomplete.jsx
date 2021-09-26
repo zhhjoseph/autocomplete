@@ -10,10 +10,12 @@ const initialState = {
   productIndex: null,
   showSuggestions: false,
   filteredSuggestions: [],
+  categoryMap: [],
   currentInput: "",
   searchQuery: "",
-  categoryMap: [],
   currentSelectedURL: "",
+  error: false,
+  errorMessage: "",
 };
 
 const Autocomplete = () => {
@@ -36,6 +38,14 @@ const Autocomplete = () => {
       dispatch({ type: "SET_DEFAULT_STATE" });
       return;
     }
+
+    //if we were to query using basic fetch, will have to make onChange asynchronous with async keyword
+    // try {
+    //   const response = await fetch(url);
+    //   const parsedResponse = response.json();
+    // } catch (error) {
+    //   dispatch({type:"SET_ERROR", error: true, errorMessage: "Failed Fetch"})
+    // }
 
     const filteredSuggestions = products.filter((product) => {
       return product.name.toLowerCase().indexOf(userInput.toLowerCase()) > -1;
@@ -77,7 +87,6 @@ const Autocomplete = () => {
         width={"382px"}
         search
       />
-
       {filteredSuggestions && categoryMap.length > 0 && (
         <DropDownList
           categoryMap={categoryMap}
