@@ -16,7 +16,7 @@ const initialState = {
   currentSelectedURL: "",
 };
 
-const Autocomplete = () => {
+const Autocomplete = (props) => {
   const [searchState, dispatch] = useReducer(searchInputReducer, initialState);
   const { products } = data;
   const {
@@ -32,6 +32,11 @@ const Autocomplete = () => {
 
   const onChange = (e) => {
     const userInput = e.currentTarget.value;
+
+    //for demo purposes if autocomplete component throws an error.
+    if (userInput === "error") {
+      throw new Error("This is a dummy error");
+    }
     if (userInput === "") {
       dispatch({ type: "SET_DEFAULT_STATE" });
       return;
@@ -71,7 +76,11 @@ const Autocomplete = () => {
         type="text"
         onChange={onChange}
         onKeyDown={onKeyDown}
-        placeholder={"Begin search here"}
+        placeholder={
+          props.error
+            ? "Something went wrong with your search"
+            : "Begin search here"
+        }
         clearValue={() => dispatch({ type: "SET_DEFAULT_STATE" })}
         value={currentInput}
         width={"382px"}

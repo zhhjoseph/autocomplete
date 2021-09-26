@@ -1,12 +1,14 @@
 import React from "react";
 import styled from "styled-components";
-import { Autocomplete, NavBar } from "../components";
+import { Autocomplete, NavBar, ErrorBoundary } from "../components";
 
 const Main = () => {
   return (
     <Container>
       <NavBar>
-        <Autocomplete />
+        <ErrorBoundary fallBackComponent={<Autocomplete error />}>
+          <Autocomplete />
+        </ErrorBoundary>
       </NavBar>
     </Container>
   );
