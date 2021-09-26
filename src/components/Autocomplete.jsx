@@ -6,8 +6,8 @@ import { searchInputReducer } from "../reducer";
 import { CustomInput } from "../UI";
 
 const initialState = {
-  categoryIndex: 0,
-  productIndex: 0,
+  categoryIndex: null,
+  productIndex: null,
   showSuggestions: false,
   filteredSuggestions: [],
   currentInput: "",
@@ -72,8 +72,12 @@ const Autocomplete = () => {
         onChange={onChange}
         onKeyDown={onKeyDown}
         placeholder={"Begin search here"}
+        clearValue={() => dispatch({ type: "SET_DEFAULT_STATE" })}
         value={currentInput}
+        width={"382px"}
+        search
       />
+
       {filteredSuggestions && categoryMap.length > 0 && (
         <DropDownList
           categoryMap={categoryMap}
@@ -93,10 +97,10 @@ const SearchBarDiv = styled.div`
   align-items: center;
   height: 100%;
   width: 100%;
+  float: right;
 `;
 
 const StyledSearchBar = styled(CustomInput)`
-  width: 382px;
   z-index: 2;
 `;
 
