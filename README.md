@@ -14,7 +14,7 @@ In the project directory, you can run the following to start locally:
 
 In regards to CSS decision of using CSS-in-JS pattern with styled-components.
 
-- Great developer expeerience - Tracking your components and styles is simple as they live in the same file as your components.
+- Great developer experience - Tracking your components and styles is simple as they live in the same file as your components.
 - Can apply complex javascript logic instead of trying to deal with classNames.
 - Have mostly just worked with styled-components professionally and do not have time to ramp up to use best practices with other methodologies.
 
