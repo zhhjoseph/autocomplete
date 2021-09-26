@@ -87,7 +87,6 @@ const Autocomplete = () => {
         width={"382px"}
         search
       />
-
       {filteredSuggestions && categoryMap.length > 0 && (
         <DropDownList
           categoryMap={categoryMap}
